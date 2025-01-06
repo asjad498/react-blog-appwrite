@@ -1,12 +1,9 @@
 import config from "../config/config";
 import { Client, Account, ID } from "appwrite";
 
-export class AuthService {
-  client = new Client();
-  account;
-
+class AuthService {
   constructor() {
-    this.client
+    this.client = new Client()
       .setEndpoint(config.appwriteUrl)
       .setProject(config.appwriteProjectId);
     this.account = new Account(this.client);
@@ -14,20 +11,10 @@ export class AuthService {
 
   async createAccount({ email, password, name }) {
     try {
-      const useAccount = await this.account.create(
-        ID.unique(),
-        email,
-        password,
-        name
-      );
-
-      if (useAccount) {
-        // call another method
-        return this.login({ email, password });
-      } else {
-        return useAccount;
-      }
+      const userAccount = await this.account.create(ID.unique(), email, password, name);
+      return userAccount ? this.login({ email, password }) : null;
     } catch (error) {
+      console.error("AuthService :: createAccount :: error", error);
       throw error;
     }
   }
@@ -36,6 +23,7 @@ export class AuthService {
     try {
       return await this.account.createEmailPasswordSession(email, password);
     } catch (error) {
+      console.error("AuthService :: login :: error", error);
       throw error;
     }
   }
@@ -44,48 +32,20 @@ export class AuthService {
     try {
       return await this.account.get();
     } catch (error) {
-      console.log("Appwrite Service :: getCurrentUser :: error", error);
-      // throw error;
+      console.warn("AuthService :: getCurrentUser :: No active session", error.message);
+      return null;
     }
-    return null;
   }
-
-  // async getCurrentUser() {
-  //   try {
-  //     return await this.account.get();
-  //   } catch (error) {
-  //     if (error.message.includes("missing scope (account)")) {
-  //       // No logged-in user, return null
-  //       return null;
-  //     } else {
-  //       console.log("Appwrite Service :: getCurrentUser :: error", error);
-  //       throw error; // For other errors
-  //     }
-  //   }
-  // }
 
   async logout() {
     try {
       await this.account.deleteSessions();
+      console.log("AuthService :: logout :: User logged out successfully");
     } catch (error) {
-      console.log("Appwrite Service :: Logout :: error", error);
+      console.error("AuthService :: logout :: error", error);
     }
   }
-  // async logout() {
-  //   try {
-  //     const user = await this.getCurrentUser();
-  //     if (user) {
-  //       await this.account.deleteSessions();
-  //       console.log("User logged out successfully.");
-  //     } else {
-  //       console.log("No active session to log out from.");
-  //     }
-  //   } catch (error) {
-  //     console.log("Appwrite Service :: Logout :: error", error);
-  //   }
-  // }
 }
 
 const authService = new AuthService();
-
 export default authService;

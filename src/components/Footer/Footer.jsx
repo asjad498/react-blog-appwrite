@@ -1,10 +1,10 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '../Logo'
 
 function Footer() {
   return (
-    <section className="relative overflow-hidden py-10 bg-gray-400 border border-t-2 border-t-black">
+    // <section className="relative overflow-hidden py-10 bg-gray-400 border border-t-2 border-t-black">
+    <section className="relative overflow-hidden py-10 bg-[#697268]">
             <div className="relative z-10 mx-auto max-w-7xl px-4">
                 <div className="-m-6 flex flex-wrap">
                     <div className="w-full p-6 md:w-1/2 lg:w-5/12">
@@ -21,7 +21,7 @@ function Footer() {
                     </div>
                     <div className="w-full p-6 md:w-1/2 lg:w-2/12">
                         <div className="h-full">
-                            <h3 className="tracking-px mb-9  text-xs font-semibold uppercase text-gray-500">
+                            <h3 className="tracking-px mb-9  text-xs font-semibold uppercase text-gray-900">
                                 Company
                             </h3>
                             <ul>
@@ -62,7 +62,7 @@ function Footer() {
                     </div>
                     <div className="w-full p-6 md:w-1/2 lg:w-2/12">
                         <div className="h-full">
-                            <h3 className="tracking-px mb-9  text-xs font-semibold uppercase text-gray-500">
+                            <h3 className="tracking-px mb-9  text-xs font-semibold uppercase text-gray-900">
                                 Support
                             </h3>
                             <ul>
@@ -103,7 +103,7 @@ function Footer() {
                     </div>
                     <div className="w-full p-6 md:w-1/2 lg:w-3/12">
                         <div className="h-full">
-                            <h3 className="tracking-px mb-9  text-xs font-semibold uppercase text-gray-500">
+                            <h3 className="tracking-px mb-9  text-xs font-semibold uppercase text-gray-900">
                                 Legals
                             </h3>
                             <ul>
